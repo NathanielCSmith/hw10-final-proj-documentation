@@ -1,0 +1,88 @@
+#define FLIPDOT_COLS          28
+#define FLIPDOT_SUBPANEL_ROWS  7
+#define FLIPDOT_NUM_SUBPANELS  2
+#define FLIPDOT_ROWS           (FLIPDOT_SUBPANEL_ROWS*FLIPDOT_NUM_SUBPANELS)
+
+#define HEADER_BYTE         0x80
+#define CMD_REFRESH         0x82
+#define CMD_UPDATE_2C_PANEL 0x84 // update 2C panel config (no self-refresh)
+#define END_BYTE            0x8f
+
+#define HEADER_OFFSET 0
+#define CMD_OFFSET    1
+#define PANEL_OFFSET  2
+#define DATA_OFFSET   3
+
+#define UPDATE_PANEL_BYTES  32
+#define REFRESH_PANEL_BYTES 3
+
+struct FlipdotPanel
+{
+  uint32_t r[FLIPDOT_ROWS];
+  
+  void print()
+  {
+    for (uint8_t j=0; j<FLIPDOT_ROWS; j++)
+    {
+      for (uint8_t i=0; i<FLIPDOT_COLS; i++)
+      {
+        Serial.print(((r[j] >> i) & 1) ? 'X' : '.');
+      }
+      Serial.println();
+    }
+    Serial.println();
+  }
+};
+
+class flipdot
+{
+public:
+  flipdot()
+  {
+  }
+  
+  static void setup()
+  {
+  }
+  
+  static void updatePanel(FlipdotPanel panel)
+  {
+    updatePanelDestructive(&panel);
+  }
+  
+  static void updatePanelDestructive(FlipdotPanel *panel)
+  {
+    uint8_t command[UPDATE_PANEL_BYTES];
+    
+    command[HEADER_OFFSET]        = HEADER_BYTE;
+    command[CMD_OFFSET]           = CMD_UPDATE_2C_PANEL; 
+    command[UPDATE_PANEL_BYTES-1] = END_BYTE;
+    
+    for (int subpanel=0; subpanel<FLIPDOT_NUM_SUBPANELS; subpanel++)
+    {
+      command[PANEL_OFFSET] = subpanel;
+
+      for (int i=0; i<FLIPDOT_COLS; i++)
+      {
+        command[DATA_OFFSET+i] = 0;
+        for (int j=0; j<FLIPDOT_SUBPANEL_ROWS; j++)
+        {
+          command[DATA_OFFSET+i] <<= 1;
+          command[DATA_OFFSET+i] |= panel->r[(subpanel*FLIPDOT_SUBPANEL_ROWS)+j] & 1;
+          
+          panel->r[(subpanel*FLIPDOT_SUBPANEL_ROWS)+j] >>= 1;
+        }
+      }
+
+      rs485::writeBytes(command, UPDATE_PANEL_BYTES);
+    }
+    
+    // finally refresh the panel
+    command[HEADER_OFFSET]         = HEADER_BYTE;
+    command[CMD_OFFSET]            = CMD_REFRESH;
+    command[REFRESH_PANEL_BYTES-1] = END_BYTE;
+    rs485::writeBytes(command, REFRESH_PANEL_BYTES);
+  }
+};
+
+FlipdotPanel g_panel;
