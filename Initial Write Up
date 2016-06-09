@@ -1,0 +1,33 @@
+LINK TO WORD FILE:
+https://www.dropbox.com/s/988tbrneknhkxvk/5.%20Smith.N_P%26E_Final%20Proj_Analog%20Pixel%20Mirror.docx?dl=0
+
+Nathaniel Smith
+Prof. John Zamfirescu-Pereira
+Programming and Electronics
+4/25/16
+
+Analog Pixel Mirror: Flippy, Move When I Move and When I don’t
+
+
+i.	Summary: Flippy move when I move is a motion recognition pixel mirror that see what you do when you do it and translates that down to pixels and mirrors the movement to the user in a new visual language in near real time. When the camera has no visual information to take it Flippy has some learned movements that it knows and runs on a loop sequence. This is the constant art that the machine put into the environment. It comprises the artist voice of image and language. It stays at these prescribed states of image sequence flow until camera information engages the system again. 
+a.	System Description: The system will have four major functional parts those are a flip dot board, camera, Arduino Uno and breadboard, which will later become a PCB. The Arduino will have uploaded sequences of data stored in its memory. When it sees the human or larger visual information it will trigger the camera to operate, otherwise it will run visual sequence information from its memory. The camera is the machines eye; it sees large information like a human. A bread board large enough to handle all the flip dots or multiple large breadboards will be need to run the arduino to the flip dots for control. 
+b.	Inputs: Inputs of data are defined as the sequences of visual data that will be programmed into the memory and to be stored. Visual information will come into the system via the camera. 
+c.	Outputs: The arduino will output information to the flip dot board on whether it should run visual sequences from the memory or display visual information from the camera translated into the pixels of the flip dots. 
+d.	Data Description: (I am kind of winging the data description here, but please help me refine this if possible) Key data that is important to the system are of two types. One type would from the camera into the microprocessor and then from the microprocessor to the flip dot board saying this should be while or this should be black. This is the mirror aspect of the board. The second data type is more bit oriented data type that just tells one dot to be on or off. That logic to decide which bit on and off unlike the camera is not described what information into the camera, but is information preprogrammed into the memory. That sequence of information is visual patterns that we have chosen to put into memory and to run until the camera sees something new.  
+e.	Visual Example: This is a large version of a something very similar I would like to do (http://breakfastny.com/dot-screen).
+f.	Original Inspiration: I was walking around the CES show in January and I stumbled upon this (CES PROJECT) and I though it would be fun to make something similar. 
+ii.	Components and Parts: 
+a.	Flip Board: This is going to be the hard part. There are only a few suppliers. At the moment I have four people and one I can’t really contact. 
+i.	Best Op-Alfa Zeta (Poland): (See their Stuff)
+ii.	Closest Option (Unclear Parameters): (See Their Stuff)
+b.	Bread Board: This is standard as far as I can tell I don’t think I won’t be able to find enough of these. There seem to be quite a few in the examples I have seen needed to rig up boards with a lot of these dots to make them all work.  
+c.	Arduino Enabled Camera: (TTL Serial Camera With NTSC Video)
+d.	Arduino Uno: (A new one)
+iii.	Challenges: 
+a.	The first challenge is going to be getting the flip dots and parts in the first place and then on time to have enough time to do anything meaningful. 
+b.	The second challenge is going to be answering my questions below in the time line for tests for the camera and tests for the flip dots. 
+c.	Once I crack that I think I will be good.
+
+iv.	Project Timeline: I need to know when I will get the components. Once I know that everything can be defined in terms of timeline. I will update this then and send it to you as a final draft with the summary updated. This should stand as my work for today. 
+
+ 
